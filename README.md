@@ -10,6 +10,21 @@ the setup. This pack contains the files that go into it, plus the instructions.
 
 ---
 
+## Quickest start — let Claude do it for you
+
+Once you've installed Claude Code (Step 1 below), open a Claude session and paste:
+
+> Look at this repo: https://github.com/PepoBCN/claude-code-warp-starter
+> Read the README, then plan and execute the whole setup for me on this Mac.
+> Walk me through anything you need me to do myself (logins, permissions), and
+> explain each step plainly as you go. I'm a beginner, so don't assume I can code.
+
+Claude reads these instructions, works out the steps and runs them, stopping to
+ask whenever it needs you to log in or tick a permission box. If you'd rather do
+it by hand, just follow the numbered steps below.
+
+---
+
 ## What's in this pack
 
 ```
