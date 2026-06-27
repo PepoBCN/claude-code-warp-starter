@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+# cc-warp — open a NEW TAB in the current Warp window and start a Claude Code session.
+# The new tab shows up in Warp's left-hand tab list (same window, not a new window),
+# cd's into the folder you choose, and launches claude.
+#
+# Usage:
+#   cc-warp [DIR] [-- "initial prompt"]
+#   cc-warp                       # new Claude tab in the current folder
+#   cc-warp ~/code/foo            # new Claude tab in ~/code/foo
+#   cc-warp ~/code/foo -- "fix the failing tests"   # ...pre-loaded with a prompt
+#
+# One-time setup: System Settings → Privacy & Security → Accessibility → tick Warp,
+# so this script is allowed to send keystrokes to Warp.
+set -euo pipefail
+
+DIR="${PWD}"
+PROMPT=""
+if [[ "${1:-}" != "" && "${1:-}" != "--" ]]; then
+  DIR="$1"; shift
+fi
+if [[ "${1:-}" == "--" ]]; then
+  shift; PROMPT="${*:-}"
+fi
+DIR="${DIR/#\~/$HOME}"
+DIR="$(cd "$DIR" 2>/dev/null && pwd)" || { echo "cc-warp: no such dir: $DIR" >&2; exit 1; }
+
+# Call the real claude binary directly. If you've set a `claude` shell alias that
+# cd's into a fixed folder, the alias would override $DIR — so we bypass it here.
+CLAUDE_BIN="$HOME/.local/bin/claude"
+[[ -x "$CLAUDE_BIN" ]] || CLAUDE_BIN="claude"
+
+if [[ -n "$PROMPT" ]]; then
+  RUN="cd $(printf '%q' "$DIR") && $CLAUDE_BIN $(printf '%q' "$PROMPT")"
+else
+  RUN="cd $(printf '%q' "$DIR") && $CLAUDE_BIN"
+fi
+
+# Drive Warp via AppleScript: focus it, open a new tab (⌘T), type the command, run it.
+ESC_RUN=${RUN//\\/\\\\}
+ESC_RUN=${ESC_RUN//\"/\\\"}
+
+/usr/bin/osascript <<APPLESCRIPT
+tell application "Warp" to activate
+delay 0.4
+tell application "System Events"
+  tell process "Warp"
+    keystroke "t" using {command down}
+    delay 0.5
+    keystroke "${ESC_RUN}"
+    delay 0.1
+    key code 36
+  end tell
+end tell
+APPLESCRIPT
+
+echo "cc-warp: new Warp tab → $DIR${PROMPT:+  (prompt: $PROMPT)}"

@@ -1,0 +1,24 @@
+{
+  "permissions": { "defaultMode": "auto" },
+  "model": "opus",
+  "effortLevel": "medium",
+  "tui": "fullscreen",
+  "theme": "auto",
+  "statusLine": {
+    "type": "command",
+    "command": "bash /Users/YOURNAME/.claude/statusline-command.sh"
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title 'Claude Code' -message \"$CLAUDE_NOTIFICATION_MESSAGE\" -sound default -group claude-code"
+          }
+        ]
+      }
+    ]
+  }
+}
