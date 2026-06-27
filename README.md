@@ -199,6 +199,37 @@ walk you through your first one.
 
 ---
 
+## Your first day actually using it
+
+Setup done, now the point is to *live in it*. Open Warp, type `claude`, and start
+giving it real work. A gentle path to get comfortable, in order:
+
+1. **Just talk to it.** Ask it to explain something, summarise a document, or
+   rewrite an email. Get a feel for the back-and-forth. This is the warm-up.
+
+2. **Let it touch files.** Make a folder, drop a few notes or a spreadsheet export
+   in it, and ask: *"Read everything in this folder and tell me what's here."*
+   Watch it actually open and reason over your files. That's the lightbulb moment.
+
+3. **Use a skill.** Try *"Use deckadence to build me a short deck about [anything]"*
+   or *"Graphify these notes."* See it produce something real, not just chat.
+
+4. **Open a second session.** Run `~/.claude/bin/cc-warp` to spin up another Claude
+   in a new Warp tab. Now you can have two things going at once. This is where it
+   starts to feel like a team rather than a chatbot.
+
+5. **Connect a tool.** When you're ready, wire in your first MCP (Google Sheets or
+   Notion is gentlest). See **SKILLS-AND-MCPS.md** in this pack for the how and the
+   GTM-engineering thinking behind it.
+
+The fastest way to learn all of this is to use it for actual work you'd be doing
+anyway, and to break things without worrying. You can't damage anything that a
+re-copy of these files won't fix.
+
+For the deeper dive on skills and connectors, read **SKILLS-AND-MCPS.md**.
+
+---
+
 ## A couple of things deliberately left out
 
 - I dropped my own connectors (my messaging, my CRM tools, my domains). Those are
